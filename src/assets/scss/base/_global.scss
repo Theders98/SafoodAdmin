@@ -1,0 +1,21 @@
+.g {
+    &--hide {
+        display: none !important;
+
+        @media (max-width: 600px) {
+            &\@mobile {
+                display: none !important;
+            }
+        }
+    }
+
+    &--show {
+        display: block !important;
+
+        @media (max-width: 600px) {
+            &\@mobile {
+                display: block !important;
+            }
+        }
+    }
+}

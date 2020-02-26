@@ -1,0 +1,69 @@
+<div class="d-flex align-items-center">
+    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="addFood(form)"><i class="fas fa-plus"></i></button>
+    <h3 class="pl-2">Comidas</h3>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-sm" style="border: 1px solid #dee2e6;">
+        <thead>
+        <tr>
+            <th class="font-weight-light">#</th>
+            <th class="font-weight-light">Nombre</th>
+            <th class="font-weight-light">Categoria</th>
+            <th class="font-weight-light">Restaruante</th>
+            <th class="font-weight-light">Descripción</th>
+            <th class="font-weight-light">Precio</th>
+            <th class="font-weight-light text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let food of foods">
+            <th class="align-middle">{{ food.id }}</th>
+            <td class="align-middle">{{ food.name }}</td>
+            <td class="align-middle">{{ food.category_id }}</td>
+            <td class="align-middle">{{ food.restaurant_id }}</td>
+            <td class="align-middle">{{ food.description }}</td>
+            <td class="align-middle">{{ food.price.toFixed(2) }}€</td>
+            <td class="text-center">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-secondary" (click)="deleteFood(food)"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-outline-secondary" (click)="editFood(food, form)"><i class="far fa-edit"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #form>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ titleModal }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="foodForm" (ngSubmit)="onSubmit(type)">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control mb-2" placeholder="Nombre" formControlName="name">
+            <label>Categoria</label>
+            <select class="form-control mb-2" formControlName="category">
+              <option *ngFor="let category of categories; let i = index" [value]="categories[i].id">
+                {{ categories[i].name }}
+              </option>
+            </select>
+            <label>Restaruante</label>
+            <select class="form-control mb-2" formControlName="restaurant">
+              <option *ngFor="let restaurant of restaurants; let i = index" [value]="restaurants[i].id">
+                {{ restaurants[i].name }}
+              </option>
+            </select>
+            <label>Descripción</label>
+            <input type="text" class="form-control mb-2" placeholder="Descripción" formControlName="description">
+            <label>Precio</label>
+            <input type="number" class="form-control mb-2" placeholder="Precio" formControlName="price">
+          </div>
+        <button type="submit" class="btn btn-primary">{{ buttonModal }}</button>
+    </form>
+  </div>
+</ng-template>
